@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+export default function App() {
+  const [number, setNumber] = useState(0);
+  const [result, setResult] = useState(0);
+
+  const Factorial = (n) => {
+    var ans = 1;
+    for (var i = 2; i <= n; i++) ans = ans * i;
+    return ans;
+  };
+
+  const handleChange = (e) => {
+    setNumber(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (number < 0) {
+      alert(' input must be greater than or equal to 0');
+      setNumber(0);
+      return;
+    }
+
+    setResult(Factorial(number));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Factorial Calculator</h1>
+      <form>
+        <input
+          type='number'
+          placeholder='Enter a number...'
+          value={number}
+          onChange={handleChange}
+        />
+        <br />
+        <br />
+        <button onClick={handleSubmit}>Calculate Factorial</button>
+      </form>
+      <h2>Factorial: {result}</h2>
     </div>
   );
 }
-
-export default App;
